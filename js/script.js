@@ -14,6 +14,7 @@ play.addEventListener('click', function(){
     const bombe = createBomb(numeroBombe, selezione);
 
     console.log(bombe); //Vedere bombe
+    console.log(bombe.sort());
 
     for(let i = 1; i <= selezione; i++){
         const quadrato = addSquare(selezione, i);
@@ -23,6 +24,8 @@ play.addEventListener('click', function(){
             if(mosse != (selezione - 16) && !this.classList.contains('clicked') && !this.classList.contains('bomb'))mosse++;
             if(bombe.includes(parseInt(this.textContent)) && stop_partita == false)bombaTrovata(this, mosse);
             else if(stop_partita == false)this.classList.add('clicked');
+            console.log(mosse);
+            if(mosse == (selezione - 16))haiVinto(mosse);
         });
     }
 
@@ -62,11 +65,14 @@ function createBomb(numeroBombe, numeroCelle){
 }
 
 function bombaTrovata(elemento, mosse){
-    risultato.innerHTML = "Hai perso, con " + mosse + " effettuate";
+    risultato.innerHTML = "Hai perso , con " + mosse + " mosse effettuate";
+    risultato.style.color = "red";
     elemento.classList.add('bomb');
     stop_partita = true;
 }
 
-function haiVinto(){
-    console.log("HAI VINTOOOO");
+function haiVinto(mosse){
+    risultato.innerHTML = "Hai Vinto!! , con " + mosse + " mosse effettuate";
+    risultato.style.color = "green";
+    stop_partita = true;
 }
