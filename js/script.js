@@ -1,12 +1,16 @@
 const numeroBombe = 16;
-let mosse = 0;
+let stop_partita = false;
 
 const play = document.getElementById("play");
+const risultato = document.getElementById("risultato");
 
 play.addEventListener('click', function(){
     const selezione = document.querySelector("#difficolta").value;
     const cont = document.querySelector(".container");
+    risultato.innerHTML = " "
     cont.innerHTML = "";
+    let mosse = 0;
+    stop_partita = false;
     const bombe = createBomb(numeroBombe, selezione);
 
     console.log(bombe); //Vedere bombe
@@ -16,9 +20,9 @@ play.addEventListener('click', function(){
         cont.appendChild(quadrato);
 
         quadrato.addEventListener('click', function(){
-            if(bombe.includes(parseInt(this.textContent)))bombaTrovata(this);
-            else this.classList.add('clicked');
-            mosse ++;
+            if(mosse != (selezione - 16) && !this.classList.contains('clicked') && !this.classList.contains('bomb'))mosse++;
+            if(bombe.includes(parseInt(this.textContent)) && stop_partita == false)bombaTrovata(this, mosse);
+            else if(stop_partita == false)this.classList.add('clicked');
         });
     }
 
@@ -57,6 +61,12 @@ function createBomb(numeroBombe, numeroCelle){
     return array;
 }
 
-function bombaTrovata(elemento){
+function bombaTrovata(elemento, mosse){
+    risultato.innerHTML = "Hai perso, con " + mosse + " effettuate";
     elemento.classList.add('bomb');
+    stop_partita = true;
+}
+
+function haiVinto(){
+    console.log("HAI VINTOOOO");
 }
