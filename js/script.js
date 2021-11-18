@@ -14,7 +14,6 @@ play.addEventListener('click', function(){
     const bombe = createBomb(numeroBombe, selezione);
 
     console.log(bombe); //Vedere bombe
-    console.log(bombe.sort());
 
     for(let i = 1; i <= selezione; i++){
         const quadrato = addSquare(selezione, i);
@@ -30,18 +29,6 @@ play.addEventListener('click', function(){
     }
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ********************** funzioni *************************
 function addSquare(selezione, num) {
